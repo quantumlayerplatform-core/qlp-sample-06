@@ -1,0 +1,58 @@
+```yaml
+name: Continuous Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.16'
+
+      - name: Cache Go modules
+        uses: actions/cache@v2
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
+      - name: Build Docker Image
+        run: |
+          docker build . --file Dockerfile --tag ghcr.io/${{ github.repository }}/gen-bef1314b:${{ github.sha }}
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          docker push ghcr.io/${{ github.repository }}/gen-bef1314b:${{ github.sha }}
+
+      - name: Set up Kubectl
+        uses: azure/setup-kubectl@v1
+
+      - name: Set up Kubernetes context
+        uses: azure/k8s-set-context@v1
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBECONFIG }}
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl set image deployment/gen-bef1314b-deployment gen-bef1314b=ghcr.io/${{ github.repository }}/gen-bef1314b:${{ github.sha }}
+          kubectl rollout status deployment/gen-bef1314b-deployment
+
+      - name: Run tests
+        run: |
+          go test ./... -cover
+
+      - name: Integration and Load Testing
+        run: |
+          # Assuming integration and load testing scripts are available
+          ./scripts/run_integration_tests.sh
+          ./scripts/run_load_tests.sh
+```

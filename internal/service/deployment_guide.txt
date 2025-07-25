@@ -1,0 +1,11 @@
+Deployment Guide for Your Service
+
+1. Ensure that the environment has Go, Redis, and Kafka installed.
+2. Deploy Redis and configure it to run on localhost:6379.
+3. Deploy Kafka and configure it to run on localhost:9092.
+4. Build the Go service using the command:
+   go build -o yourservice
+5. Run the compiled binary:
+   ./yourservice
+
+Make sure that the ports used by Redis, Kafka, and the service do not conflict with other applications.

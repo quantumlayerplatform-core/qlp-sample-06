@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package yourservice;
+
+service YourService {
+  rpc YourMethod (YourRequest) returns (YourResponse);
+}
+
+message YourRequest {
+  // Define request fields
+}
+
+message YourResponse {
+  // Define response fields
+}

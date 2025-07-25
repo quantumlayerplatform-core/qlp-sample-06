@@ -1,0 +1,44 @@
+version: 1
+formatters:
+  simple:
+    format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    datefmt: '%Y-%m-%d %H:%M:%S'
+  json:
+    format: '{"time": "%(asctime)s", "name": "%(name)s", "level": "%(levelname)s", "message": "%(message)s"}'
+    datefmt: '%Y-%m-%d %H:%M:%S'
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: simple
+    stream: ext://sys.stdout
+
+  file_handler:
+    class: logging.handlers.RotatingFileHandler
+    level: INFO
+    formatter: json
+    filename: '/var/log/gen-bef1314b-eae5-4ec5-8c2b-8bc9f1d6db06/app.log'
+    maxBytes: 10485760 # 10MB
+    backupCount: 10
+    encoding: utf8
+
+loggers:
+  grpc:
+    level: WARNING
+    handlers: [console, file_handler]
+    propagate: no
+
+  kafka:
+    level: INFO
+    handlers: [console, file_handler]
+    propagate: no
+
+  redis:
+    level: DEBUG
+    handlers: [console, file_handler]
+    propagate: no
+
+root:
+  level: WARNING
+  handlers: [console, file_handler]

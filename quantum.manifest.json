@@ -1,0 +1,57 @@
+{
+  "capsuleID": "capsule-gen-bef1314b-eae5-4ec5-8c2b-8bc9f1d6db06",
+  "components": {
+    "buildConfigs": 0,
+    "configurations": 2,
+    "dependencies": 0,
+    "deployment": 2,
+    "documentation": 2,
+    "scripts": 0,
+    "sourceFiles": 16,
+    "tests": 2
+  },
+  "files": [
+    "internal/service/grpcClient.go",
+    "internal/service/userComponent.go",
+    "src/userView.go",
+    "src/userStyle.css",
+    "internal/service/main.go",
+    "internal/service/your_service.proto",
+    "internal/repository/redis_client.go",
+    "src/kafka_producer.go",
+    "internal/service/fixtures.go",
+    "internal/service/mock_web_app_server.go",
+    "internal/service/service.go",
+    "api/handler.go",
+    "internal/service/user_service.go",
+    "api/user_handler.go",
+    ".github/workflows/ci.yml",
+    ".github/workflows/cd.yml",
+    "docs/README.md",
+    "docs/api.md",
+    "test/web_app_test.go",
+    "test/load_test.go",
+    "internal/service/deployment_guide.txt",
+    "Dockerfile",
+    "configs/logging_config.yaml",
+    "monitoring/prometheus.yaml"
+  ],
+  "metadata": {
+    "author": "QuantumLayer User",
+    "generatedBy": "QuantumLayer Platform",
+    "requestID": "gen-bef1314b-eae5-4ec5-8c2b-8bc9f1d6db06",
+    "version": "1.0.0"
+  },
+  "project": {
+    "description": "Generate a microservice with gRPC, Kafka messaging, Redis caching, and Kubernetes deployment",
+    "features": [
+      "gRPC communication",
+      "Kafka messaging",
+      "Redis caching"
+    ],
+    "framework": "grpc",
+    "language": "go",
+    "name": "gen-bef1314b-eae5-4ec5-8c2b-8bc9f1d6db06",
+    "type": ""
+  }
+}
